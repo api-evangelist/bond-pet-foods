@@ -1,0 +1,92 @@
+generated: '2026-08-08'
+method: probed
+source: >-
+  https://www.bondpets.com/wp-json/ route index, plus live probes of status/changelog/roadmap
+  paths on www.bondpets.com
+summary: >-
+  Bond Pet Foods publishes no API lifecycle commitments of any kind. There is no versioning
+  policy, no deprecation policy, no Sunset or Deprecation header, no SLA, no status page and no
+  changelog. Versioning is visible only as a path namespace, and superseded WooCommerce
+  namespaces are still served with no notice of retirement.
+versioning:
+  style: path-namespace
+  policy_published: false
+  current:
+  - namespace: wp/v2
+    surface: Content API
+    status: current
+  - namespace: wc/store/v1
+    surface: Store API
+    status: current
+  superseded_but_still_served:
+  - namespace: wc/v1
+    detail: >-
+      Legacy WooCommerce REST namespace, superseded by wc/v3 upstream. Still registered and
+      advertised in this host's route index. No sunset date is announced.
+  - namespace: wc/v2
+    detail: >-
+      Legacy WooCommerce REST namespace, superseded by wc/v3 upstream. Still registered and
+      advertised in this host's route index. No sunset date is announced.
+  detail: >-
+    A caller cannot tell from the route index which namespaces are current and which are legacy -
+    all 57 are advertised identically. The status values above are derived from upstream
+    WooCommerce release history, not from anything Bond Pet Foods publishes.
+deprecation:
+  policy_published: false
+  no_pointer_emitted: true
+  no_pointer_reason: >-
+    Deliberate. No deprecation policy exists, so no `Deprecation` pointer was added to apis.yml.
+  rfc8594:
+    sunset_header: false
+    deprecation_header: false
+    detail: >-
+      No Sunset or Deprecation response header was observed on any route, including the legacy
+      wc/v1 and wc/v2 namespaces.
+  deprecated_operations:
+    count: 0
+    detail: >-
+      No operation in either derived OpenAPI document carries deprecated:true, because the
+      WordPress route index does not express deprecation.
+status_page:
+  published: false
+  no_pointer_emitted: true
+  no_pointer_reason: >-
+    Deliberate. No status page exists, so no `StatusPage` pointer was added to apis.yml.
+  probed:
+  - url: https://status.bondpets.com/
+    status: 0
+    detail: DNS does not resolve.
+  - url: https://www.bondpets.com/status/
+    status: 404
+sla:
+  published: false
+  detail: No uptime, latency or support-response commitment is published for the API surface.
+changelog:
+  published: false
+  no_artifact_written: true
+  probed:
+  - url: https://www.bondpets.com/changelog/
+    status: 404
+  - url: https://www.bondpets.com/news/
+    status: 200
+    detail: >-
+      A company news page exists and is served through wp/v2/posts, but it carries press coverage
+      and corporate announcements, not API or product release notes. It is wired as `Blog`, not
+      as `ChangeLog`.
+roadmap:
+  published: false
+  probed:
+  - url: https://www.bondpets.com/roadmap/
+    status: 404
+support:
+  channel: https://www.bondpets.com/contact/
+  detail: >-
+    A general company contact form. There is no developer support channel, no community forum and
+    no published support email for API consumers.
+maturity_assessment:
+  detail: >-
+    This is an incidental API surface, not a managed one. It exists because WordPress and
+    WooCommerce register REST routes by default, and it will change whenever the site's plugins
+    are updated - the route index already reflects 57 namespaces contributed by Elementor,
+    ElementsKit, RankMath, Jetpack, Klaviyo, Wordfence, FileBird and others. A consumer should
+    treat every route as unversioned in practice and subject to change without notice.

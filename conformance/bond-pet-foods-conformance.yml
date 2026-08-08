@@ -1,0 +1,123 @@
+generated: '2026-08-08'
+method: derived
+source: >-
+  openapi/bond-pet-foods-store-openapi.json, openapi/bond-pet-foods-content-openapi.json,
+  conventions/bond-pet-foods-conventions.yml, authentication/bond-pet-foods-authentication.yml,
+  and live probes of https://www.bondpets.com/ on 2026-08-08
+note: >-
+  Bond Pet Foods makes no conformance or compliance claims anywhere on its public surface. Every
+  assertion below was derived from the observed behaviour of the host, not from a claim the
+  company makes. No `Compliance` pointer was emitted, because no certification, audit report or
+  compliance program is published.
+standards:
+- id: openapi
+  conforms: true
+  version: 3.1.0
+  evidence: >-
+    Two OpenAPI 3.1.0 documents in openapi/ describe the surface. NOTE: these were derived by API
+    Evangelist from the host's own route index and OPTIONS schemas. Bond Pet Foods does not
+    itself publish an OpenAPI document - /openapi.json, /openapi.yaml and /swagger.json all
+    return 404.
+  published_by_provider: false
+- id: json-schema
+  conforms: true
+  evidence: >-
+    Every route answers HTTP OPTIONS with a JSON Schema for its arguments and its resource. This
+    is the provider's own published schema surface and is what both OpenAPI documents derive
+    from.
+  published_by_provider: true
+- id: rfc8288
+  name: Web Linking
+  conforms: true
+  evidence: >-
+    Collection responses carry a Link header with rel="next" / rel="prev", observed on
+    GET /wp-json/wc/store/v1/products?per_page=1.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors are returned as application/json with a flat {code, message, data.status} envelope. No
+    application/problem+json media type, no type URI, no title member. See
+    errors/bond-pet-foods-problem-types.yml.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No idempotency key is accepted on any route of either published API, and no idempotency
+    semantics are documented. See conventions/bond-pet-foods-conventions.yml.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Consistent page/per_page/offset parameters with X-WP-Total and X-WP-TotalPages response
+    headers across every collection route.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No OAuth 2.0 surface. /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource both return 404, and no OAuth namespace is registered.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404.
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 with an HTML body.
+- id: rfc8615
+  name: Well-Known URIs
+  conforms: false
+  evidence: >-
+    No /.well-known/ document of any kind is served. All eight probed paths returned 404, and a
+    control path returned an identical 404, confirming true negatives rather than a catch-all.
+  see: well-known/bond-pet-foods-well-known.yml
+- id: rfc8594
+  name: Sunset HTTP Header
+  conforms: false
+  evidence: No Sunset or Deprecation header on any route, including legacy wc/v1 and wc/v2.
+- id: cors
+  conforms: true
+  evidence: >-
+    access-control-allow-origin:* with credentials allowed and X-WP-Total, X-WP-TotalPages, Link
+    and Cart-Token exposed. Browser clients can call the public read surface directly.
+- id: json-api
+  conforms: false
+  evidence: Responses are plain JSON resources, not a JSON:API document structure.
+- id: odata
+  conforms: false
+  evidence: No OData metadata document or query conventions.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: >-
+    No MCP namespace is registered in the 57-namespace route index, and no hosted or remote MCP
+    endpoint was found. No mcp/ artifact was written.
+- id: a2a
+  name: Agent2Agent
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json both return 404. No a2a/ artifact
+    was written, per the search-only rule.
+compliance_program:
+  published: false
+  no_pointer_emitted: true
+  certifications: []
+  detail: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP claim appears anywhere on www.bondpets.com,
+    and no trust center exists (trust.bondpets.com does not resolve). Bond Pet Foods is a food
+    manufacturer; its regulatory surface is AAFCO / FDA CVM feed-ingredient review, which is a
+    product-safety regime and not an API or information-security compliance program. No
+    `Compliance` and no `TrustCenter` pointer was emitted.
+privacy:
+  policy: https://www.bondpets.com/privacy-policy/
+  status: 200
+  detail: A published privacy policy exists and is wired as PrivacyPolicy.
+terms_of_service:
+  published: false
+  probed:
+  - url: https://www.bondpets.com/terms/
+    status: 404
+  - url: https://www.bondpets.com/terms-of-service/
+    status: 404
+  - url: https://www.bondpets.com/terms-and-conditions/
+    status: 404
+  detail: >-
+    No terms of service page was found, which is notable for a site that operates a live
+    WooCommerce checkout. No TermsOfService pointer was emitted.

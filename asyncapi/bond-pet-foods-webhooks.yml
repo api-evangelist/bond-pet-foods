@@ -1,0 +1,109 @@
+generated: '2026-08-08'
+method: probed
+source: https://www.bondpets.com/wp-json/
+spec_type: null
+advertised: false
+no_pointer_emitted: true
+no_pointer_reason: >-
+  Deliberate. Bond Pet Foods does not ADVERTISE webhooks - there is no webhook catalog, no event
+  reference, no subscription documentation and no developer portal of any kind. The routes below
+  are the stock WooCommerce webhook ADMINISTRATION endpoints, present because the plugin is
+  installed, and every one of them is credential-gated. Emitting a `Webhooks` or `AsyncAPI`
+  pointer would credit this company with an event posture it does not have, so neither was added
+  to apis.yml. The surface is recorded here because it is real, not because it scores.
+summary: >-
+  No AsyncAPI document is published anywhere on this host, and no consumer-facing event or
+  streaming surface exists. What does exist is the WooCommerce webhook management API, which lets
+  an authenticated site administrator register delivery URLs for store events, plus two inbound
+  receivers for payment-provider callbacks.
+webhook_management_routes:
+- path: /wp-json/wc/v3/webhooks
+  methods: [GET, POST]
+  gated: true
+  namespace: wc/v3
+- path: /wp-json/wc/v3/webhooks/{id}
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  gated: true
+  namespace: wc/v3
+- path: /wp-json/wc/v3/webhooks/batch
+  methods: [POST, PUT, PATCH]
+  gated: true
+  namespace: wc/v3
+- path: /wp-json/wc/v2/webhooks
+  methods: [GET, POST]
+  gated: true
+  namespace: wc/v2
+  status: legacy-still-served
+- path: /wp-json/wc/v2/webhooks/{id}
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  gated: true
+  namespace: wc/v2
+  status: legacy-still-served
+- path: /wp-json/wc/v2/webhooks/{webhook_id}/deliveries
+  methods: [GET]
+  gated: true
+  namespace: wc/v2
+  status: legacy-still-served
+- path: /wp-json/wc/v2/webhooks/{webhook_id}/deliveries/{id}
+  methods: [GET]
+  gated: true
+  namespace: wc/v2
+  status: legacy-still-served
+- path: /wp-json/wc/v2/webhooks/batch
+  methods: [POST, PUT, PATCH]
+  gated: true
+  namespace: wc/v2
+  status: legacy-still-served
+- path: /wp-json/wc/v1/webhooks
+  methods: [GET, POST]
+  gated: true
+  namespace: wc/v1
+  status: legacy-still-served
+- path: /wp-json/wc/v1/webhooks/{id}
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  gated: true
+  namespace: wc/v1
+  status: legacy-still-served
+- path: /wp-json/wc/v1/webhooks/{webhook_id}/deliveries
+  methods: [GET]
+  gated: true
+  namespace: wc/v1
+  status: legacy-still-served
+- path: /wp-json/wc/v1/webhooks/{webhook_id}/deliveries/{id}
+  methods: [GET]
+  gated: true
+  namespace: wc/v1
+  status: legacy-still-served
+- path: /wp-json/wc/v1/webhooks/batch
+  methods: [POST, PUT, PATCH]
+  gated: true
+  namespace: wc/v1
+  status: legacy-still-served
+inbound_webhook_receivers:
+- path: /wp-json/wc/v3/paypal-webhooks
+  methods: [POST]
+  direction: inbound
+  note: >-
+    A receiver for PayPal's outbound webhooks, not an event Bond Pet Foods emits. Indicates
+    PayPal is a payment method on this store.
+- path: /wp-json/wc/v3/wc_stripe/account/webhook-status-message
+  methods: [GET]
+  direction: management
+  gated: true
+  note: >-
+    Stripe gateway webhook status. Together with the configure_webhooks route below it indicates
+    Stripe is the card payment method on this store.
+- path: /wp-json/wc/v3/wc_stripe/account_keys/configure_webhooks
+  methods: [POST, PUT, PATCH]
+  direction: management
+  gated: true
+event_catalog:
+  status: not-published
+  detail: >-
+    WooCommerce's own webhook topics (order.created, order.updated, product.created,
+    customer.created and so on) are an upstream plugin capability. Bond Pet Foods publishes no
+    list of which topics it has enabled, if any, and the management routes that would reveal it
+    are credential-gated. The event catalog is therefore unknown, not empty.
+consumer_impact: >-
+  A partner or agent cannot subscribe to anything. There is no public subscription endpoint, no
+  event schema, no delivery guarantee and no signature-verification documentation.

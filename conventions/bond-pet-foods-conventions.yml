@@ -1,0 +1,150 @@
+generated: '2026-08-08'
+method: probed
+source: >-
+  Live response headers and error bodies from https://www.bondpets.com/wp-json/, plus
+  openapi/bond-pet-foods-store-openapi.json and openapi/bond-pet-foods-content-openapi.json
+note: >-
+  Bond Pet Foods documents no API conventions - there is no developer portal, no reference and no
+  changelog. Everything recorded here was either observed on the wire against the live host on
+  2026-08-08, or derived from the route index the host itself publishes. Nothing was authored.
+authentication:
+  style: mixed
+  detail: >-
+    Anonymous for WooCommerce Store API reads and wp/v2 collection reads; Nonce plus Cart-Token
+    headers for Store API cart and checkout writes; X-WP-Nonce for cookie-authenticated requests;
+    HTTP Basic Application Passwords for programmatic WordPress access. No OAuth surface exists.
+  see: authentication/bond-pet-foods-authentication.yml
+idempotency:
+  supported: false
+  no_pointer_emitted: true
+  detail: >-
+    Neither published API supports idempotent writes. No route in wc/store/v1 or wp/v2 accepts an
+    idempotency key in its argument schema, no Idempotency-Key request header is advertised in
+    access-control-allow-headers, and no idempotency semantics are documented anywhere on the
+    host. Because the two APIs profiled here have no idempotency support, NO `Idempotency`
+    pointer was added to apis.yml - the agent-readiness idempotency dimension is an honest zero.
+  sole_exception:
+    routes:
+    - POST /wp-json/wccom-site/v3/installer
+    - POST /wp-json/wccom-site/v3/installer/reset
+    parameter: idempotency-key
+    required: true
+    detail: >-
+      Two routes on this host DO declare a required `idempotency-key` string argument. They are
+      the stock WooCommerce.com plugin-installer administration endpoints, present because the
+      WooCommerce plugin is installed. They are credential-gated, are not part of either API
+      profiled in apis.yml, and are not a commerce or content surface a caller can use. They are
+      recorded here for accuracy, not as evidence of an idempotency posture.
+  not_tested:
+    detail: >-
+      Retry behaviour on cart writes was NOT tested. Bond Pet Foods runs a live production store
+      and a write probe would have mutated real state, so no POST was issued. The finding above
+      is from the declared argument schemas and advertised headers only.
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    type: integer
+    default: 1
+    minimum: 1
+  - name: per_page
+    type: integer
+    default: 10
+    minimum: 1
+    maximum: 100
+  - name: offset
+    type: integer
+    note: Supported alongside page on most wp/v2 collection routes.
+  response_headers:
+  - name: X-WP-Total
+    detail: Total number of items in the collection (observed value 5 for Store API products).
+  - name: X-WP-TotalPages
+    detail: Total number of pages at the requested per_page.
+  - name: Link
+    detail: 'RFC 8288 link header carrying rel="next" / rel="prev".'
+  cors_exposed: [X-WP-Total, X-WP-TotalPages, Link, Cart-Token]
+  observed_example: >-
+    GET /wp-json/wc/store/v1/products?per_page=1 returned x-wp-total: 5, x-wp-totalpages: 5 and
+    link: <https://www.bondpets.com/wp-json/wc/store/v1/products?per_page=1&page=2>; rel="next"
+filtering_and_sorting:
+  params: [search, slug, include, exclude, order, orderby, after, before, modified_after, modified_before]
+  detail: >-
+    Standard WordPress collection filters, published per-route in the discovery index argument
+    schemas. Store API product collections add min_price, max_price, category, tag, attributes,
+    stock_status, on_sale and rating filters.
+field_selection:
+  supported: true
+  params:
+  - name: _fields
+    detail: Comma-separated list restricting the response to named top-level fields.
+  - name: _embed
+    detail: Inlines linked resources (author, featured media, terms) under _embedded.
+  - name: context
+    detail: 'view | embed | edit - determines which fields are present. edit requires auth.'
+  note: >-
+    _fields and _embed are WordPress core conventions and are not declared in the per-route
+    argument schemas, so they do not appear as parameters in the derived OpenAPI. They were
+    verified to work anonymously against this host.
+request_tracing:
+  supported: false
+  detail: >-
+    No request id is returned. There is no X-Request-Id, X-Correlation-Id or equivalent header on
+    any observed response, so a caller cannot cite a request identifier in a support ticket.
+versioning:
+  style: path-namespace
+  detail: >-
+    Versions are encoded in the route namespace rather than in a header or media type -
+    /wp-json/wp/v2, /wp-json/wc/store/v1, /wp-json/wc/v3. Superseded WooCommerce namespaces
+    (wc/v1, wc/v2) are still served alongside wc/v3.
+  see: lifecycle/bond-pet-foods-lifecycle.yml
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  media_type: application/json
+  detail: >-
+    Errors are returned as a flat JSON object, not as RFC 9457 application/problem+json. There is
+    no type URI, no title and no instance member.
+  shape:
+    code: Machine-readable string error code, e.g. rest_no_route.
+    message: Human-readable message.
+    data.status: HTTP status code, repeated inside the body.
+  observed_examples:
+  - 'GET /wp-json/wp/v2/users -> {"code":"rest_user_cannot_view","message":"Sorry, you are not allowed to list users.","data":{"status":401}}'
+  - 'GET /wp-json/wc/store/v1/products/999999 -> {"code":"woocommerce_rest_product_invalid_id","message":"Invalid product ID.","data":{"status":404}}'
+  - 'GET /wp-json/wp/v2/nope -> {"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}'
+  see: errors/bond-pet-foods-problem-types.yml
+rate_limiting:
+  signaled: false
+  detail: >-
+    No rate-limit signaling of any kind was observed. No RateLimit, RateLimit-Policy,
+    X-RateLimit-Limit, X-RateLimit-Remaining or Retry-After header appears on any response, and
+    no rate-limit policy is published. A caller has no way to know a limit exists until it is
+    enforced. No rate-limits/ artifact was written and no RateLimits pointer was emitted.
+batching:
+  supported: true
+  endpoint: POST /wp-json/wc/store/v1/batch
+  detail: >-
+    The Store API accepts up to 25 sub-requests in one call, with a `validation` mode of
+    require-all-validate or normal. Batch sub-requests are limited to POST, PUT, PATCH and
+    DELETE, and inherit the same Nonce / Cart-Token requirements as the individual routes.
+caching:
+  detail: >-
+    Responses are served with cache-control: no-store, no-cache, must-revalidate and an
+    expires header of Thu, 19 Nov 1981 08:52:00 GMT - the WordPress session default. A
+    last-modified header is present on Store API collection responses (observed
+    Wed, 25 Mar 2026 00:16:56 GMT for products), but no ETag is emitted and conditional requests
+    are not advertised.
+  x_robots_tag: 'noindex (set on /wp-json/ responses)'
+cors:
+  access_control_allow_origin: '*'
+  access_control_allow_credentials: true
+  access_control_allow_methods: [OPTIONS, GET, POST, PUT, PATCH, DELETE]
+  access_control_allow_headers: [Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type, Cart-Token, Nonce]
+  detail: Browser clients can call the public read surface cross-origin without a proxy.
+schema_discovery:
+  supported: true
+  detail: >-
+    Every route answers an HTTP OPTIONS request with its own JSON Schema, and /wp-json/ returns a
+    machine-readable index of all 970 routes across 57 namespaces with per-argument schemas. This
+    is the only machine-readable contract Bond Pet Foods serves, and it is what both OpenAPI
+    documents in openapi/ were derived from.

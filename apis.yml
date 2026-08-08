@@ -1,23 +1,141 @@
 aid: bond-pet-foods
 name: Bond Pet Foods
-description: 'Bond Pet Foods is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Bond Pet Foods is a Boulder, Colorado food-biotechnology company that makes animal proteins for
+  pet food by precision fermentation rather than by farming animals. Its process pairs a chicken
+  DNA sequence with brewer's yeast and runs it through a roughly 48-hour controlled fermentation,
+  after which the protein is harvested, dried and milled into a powder that pet food makers
+  formulate into finished products. The company operates a 15,000 square-foot food lab in central
+  Boulder, is led by founder and CEO Rich Kelleman, markets itself as an "Ally For All Animals",
+  and has announced a $17.5M Series A, an investment from Symrise AG, and development partnerships
+  with Hill's Pet Nutrition and Wilbur-Ellis Nutrition. Bond Pet Foods runs no developer program
+  and publishes no API documentation, but its own site at www.bondpets.com runs on WordPress and
+  WooCommerce and exposes a genuinely public, machine-readable API surface - a WordPress REST API
+  discovery index advertising 970 routes across 57 namespaces, and an anonymously readable
+  WooCommerce Store API covering the merchandise catalog, categories and cart.
 url: https://raw.githubusercontent.com/api-evangelist/bond-pet-foods/refs/heads/main/apis.yml
+image: https://www.bondpets.com/wp-content/uploads/2022/09/Bond_SocialShare_1_Home_Mission.jpg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-08'
 modified: '2026-08-08'
 tags:
-- Company
-apis: []
+- Pet Food
+- Alternative Protein
+- Precision Fermentation
+- Food Technology
+- Biotechnology
+- Animal Nutrition
+- Sustainability
+- E-Commerce
+- WooCommerce
+- WordPress
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: bond-pet-foods:store
+  name: Bond Pet Foods Store API
+  description: >-
+    The WooCommerce Store API served from www.bondpets.com/wp-json/wc/store/v1 - a public,
+    unauthenticated commerce surface covering the Bond Pet Foods online shop catalog (branded
+    merchandise and a coffee donation item, not the fermented protein itself, which is sold B2B),
+    plus product categories, attributes, brands, tags, reviews, collection data, cart, coupon,
+    shipping-rate and checkout operations. Read operations were verified anonymously on
+    2026-08-08; write operations require a Nonce header and a Cart-Token session.
+  humanURL: https://www.bondpets.com/shop/
+  baseURL: https://www.bondpets.com/wp-json/wc/store/v1
+  tags:
+  - E-Commerce
+  - Products
+  - Cart
+  - Checkout
+  - WooCommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/bond-pet-foods-store-openapi.json
+  - type: Overlay
+    url: overlays/bond-pet-foods-store-overlay.yaml
+- aid: bond-pet-foods:content
+  name: Bond Pet Foods Content API
+  description: >-
+    The WordPress REST API (wp/v2) served from www.bondpets.com/wp-json/wp/v2 - posts, pages,
+    media, categories, tags, comments, taxonomies, site search and the WooCommerce product post
+    type. Collection reads are public and were verified anonymously; writes and edit-context
+    reads such as /users and /settings require authentication and return HTTP 401.
+  humanURL: https://www.bondpets.com/news/
+  baseURL: https://www.bondpets.com/wp-json/wp/v2
+  tags:
+  - Content
+  - Media
+  - WordPress
+  - News
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/bond-pet-foods-content-openapi.json
+  - type: Overlay
+    url: overlays/bond-pet-foods-content-overlay.yaml
 common:
 - type: Website
+  url: https://www.bondpets.com/
+- type: Company
+  url: https://www.bondpets.com/our-mission/
+- type: Team
+  url: https://www.bondpets.com/our-team/
+- type: Products
+  url: https://www.bondpets.com/shop/
+- type: Support
+  url: https://www.bondpets.com/contact/
+- type: FAQ
+  url: https://www.bondpets.com/faqs/
+- type: Blog
+  url: https://www.bondpets.com/news/
+- type: BlogRSS
+  url: https://www.bondpets.com/feed/
+- type: Press
+  url: https://www.bondpets.com/press/
+- type: Careers
+  url: https://www.bondpets.com/careers/
+- type: Newsletter
+  url: https://www.bondpets.com/newsletter/
+- type: PrivacyPolicy
+  url: https://www.bondpets.com/privacy-policy/
+- type: SecondaryMarket
   url: https://www.nasdaqprivatemarket.com/
+- type: Authentication
+  url: authentication/bond-pet-foods-authentication.yml
+- type: Conventions
+  url: conventions/bond-pet-foods-conventions.yml
+- type: ErrorCatalog
+  url: errors/bond-pet-foods-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bond-pet-foods-lifecycle.yml
+- type: Conformance
+  url: conformance/bond-pet-foods-conformance.yml
+- type: DataModel
+  url: data-model/bond-pet-foods-data-model.yml
+- type: DomainSecurity
+  url: security/bond-pet-foods-domain-security.yml
+- type: LLMsTxt
+  url: llms/bond-pet-foods-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-08'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Bond Pet Foods runs no developer program - /openapi.json, /llms.txt, /graphql and all eight
+    /.well-known/ paths return 404 against a control-path-verified true 404 - but contract
+    discovery against its own host found a real, anonymously readable API surface: a WordPress
+    REST index advertising 970 routes across 57 namespaces with per-route JSON Schema, and a
+    public WooCommerce Store API.
+  checked: '2026-08-08'

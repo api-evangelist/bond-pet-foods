@@ -1,0 +1,66 @@
+generated: '2026-08-08'
+method: derived
+source: openapi/bond-pet-foods-content-openapi.json, openapi/bond-pet-foods-store-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: cookieNonce
+  type: apiKey
+  in: header
+  parameter: X-WP-Nonce
+  description: WordPress cookie authentication nonce. Required for state-changing wp/v2 requests
+    from a logged-in browser session.
+  sources:
+  - openapi/bond-pet-foods-content-openapi.json
+  - openapi/bond-pet-foods-store-openapi.json
+- name: cartToken
+  type: apiKey
+  in: header
+  parameter: Cart-Token
+  description: WooCommerce Store API JWT session token identifying an anonymous cart. Returned
+    in the Cart-Token response header.
+  sources:
+  - openapi/bond-pet-foods-content-openapi.json
+  - openapi/bond-pet-foods-store-openapi.json
+- name: applicationPassword
+  type: http
+  scheme: basic
+  description: WordPress Application Password (username + generated password) sent as HTTP Basic.
+  sources:
+  - openapi/bond-pet-foods-content-openapi.json
+  - openapi/bond-pet-foods-store-openapi.json
+docs:
+  status: not-published
+  detail: >-
+    Bond Pet Foods publishes no developer portal and no authentication documentation. The schemes
+    above are the WordPress/WooCommerce platform defaults, derived from the route index the host
+    itself serves and confirmed against live anonymous requests.
+observed:
+  probed: '2026-08-08'
+  anonymous_read_allowed:
+  - GET /wp-json/wc/store/v1/products -> 200
+  - GET /wp-json/wc/store/v1/products/categories -> 200
+  - GET /wp-json/wc/store/v1/cart -> 200
+  - GET /wp-json/wp/v2/posts -> 200
+  - GET /wp-json/wp/v2/pages -> 200
+  - GET /wp-json/wp/v2/media -> 200
+  - GET /wp-json/wp/v2/search -> 200
+  credential_gated:
+  - GET /wp-json/wp/v2/users -> 401 rest_user_cannot_view
+  - GET /wp-json/wp/v2/settings -> 401 rest_forbidden
+  - GET /wp-json/wp-abilities/v1/abilities -> 401
+  - GET /wp-json/wp-abilities/v1/categories -> 401
+  cors:
+    access_control_allow_origin: '*'
+    access_control_allow_credentials: true
+    allowed_headers: [Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type, Cart-Token, Nonce]
+  oauth:
+    present: false
+    detail: >-
+      No OAuth or OpenID Connect surface exists. /.well-known/oauth-authorization-server,
+      /.well-known/oauth-protected-resource and /.well-known/openid-configuration all return 404,
+      and the discovery index advertises no OAuth namespace. No scopes/ artifact was written.

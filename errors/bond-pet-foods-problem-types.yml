@@ -1,0 +1,107 @@
+generated: '2026-08-08'
+method: derived
+source: >-
+  openapi/bond-pet-foods-store-openapi.json, openapi/bond-pet-foods-content-openapi.json, and
+  live error responses observed against https://www.bondpets.com/wp-json/ on 2026-08-08
+format: wordpress-rest
+rfc9457: false
+media_type: application/json
+docs:
+  status: not-published
+  detail: >-
+    Bond Pet Foods publishes no error reference. There is no developer portal, so no error titles
+    or remediation guidance could be searched. Every entry below is either an error observed on
+    the wire against this host, or a status code declared in the derived OpenAPI documents.
+envelope:
+  detail: >-
+    A flat JSON object. This is NOT RFC 9457 - there is no `type` URI, no `title`, no `detail`
+    and no `instance`, and the media type is application/json rather than
+    application/problem+json.
+  fields:
+  - name: code
+    type: string
+    detail: Machine-readable error code. This is the stable identifier a client should branch on.
+  - name: message
+    type: string
+    detail: Human-readable message, localized to the site language.
+  - name: data.status
+    type: integer
+    detail: HTTP status code, repeated inside the body.
+  - name: data.params
+    type: object
+    detail: Present on validation failures; maps the offending parameter name to its message.
+  - name: additional_errors
+    type: array
+    detail: Present when more than one validation error occurred in a single request.
+observed:
+- code: rest_no_route
+  status: 404
+  message: No route was found matching the URL and request method.
+  cause: The path or method is not registered on this host.
+  remediation: >-
+    Re-read the route index at /wp-json/ - it lists every registered route and the methods each
+    one accepts.
+  verified: '2026-08-08'
+  request: GET /wp-json/wp/v2/nope
+- code: rest_user_cannot_view
+  status: 401
+  message: Sorry, you are not allowed to list users.
+  cause: The user collection requires an authenticated request with list_users capability.
+  remediation: Authenticate with an Application Password or a cookie nonce for a privileged user.
+  verified: '2026-08-08'
+  request: GET /wp-json/wp/v2/users
+- code: woocommerce_rest_product_invalid_id
+  status: 404
+  message: Invalid product ID.
+  cause: The requested product id does not exist or is not published.
+  remediation: List /wc/store/v1/products first and use an id from that collection.
+  verified: '2026-08-08'
+  request: GET /wp-json/wc/store/v1/products/999999
+- code: rest_forbidden
+  status: 401
+  message: Sorry, you are not allowed to do that.
+  cause: >-
+    Generic capability failure. Returned for /wp/v2/settings and the wp-abilities/v1 routes when
+    called anonymously.
+  remediation: Authenticate as a user holding the capability the route requires.
+  verified: '2026-08-08'
+  request: GET /wp-json/wp/v2/settings
+- code: rest_missing_callback_param
+  status: 400
+  message: 'Missing parameter(s): url'
+  cause: A route argument marked required in its OPTIONS schema was not supplied.
+  remediation: >-
+    Read the route's OPTIONS schema and supply every argument with required:true. data.params
+    lists the missing parameter names.
+  verified: '2026-08-08'
+  request: GET /wp-json/oembed/1.0/embed
+  response: '{"code":"rest_missing_callback_param","message":"Missing parameter(s): url","data":{"status":400,"params":["url"]}}'
+declared_status_codes:
+- status: 200
+  detail: Successful response.
+- status: 400
+  detail: >-
+    Invalid request parameters. Returned when a declared argument fails its JSON Schema
+    validation; data.params names the offending parameter.
+- status: 401
+  detail: >-
+    Authentication, capability, nonce or Cart-Token requirement not met. Note that WordPress
+    returns 401 rather than 403 for most capability failures on anonymous requests.
+- status: 404
+  detail: No route or resource found.
+classes:
+- prefix: rest_
+  origin: WordPress core REST API
+  detail: Routing, capability, validation and authentication errors from WordPress itself.
+- prefix: woocommerce_rest_
+  origin: WooCommerce REST API
+  detail: Product, order, coupon and customer resource errors.
+- prefix: woocommerce_rest_cart_
+  origin: WooCommerce Store API
+  detail: Cart, coupon, shipping-rate and checkout errors, including nonce and token failures.
+gaps:
+  detail: >-
+    Because no error reference is published, the full registry of codes this host can emit is
+    unknown. Only codes reachable by an anonymous read were observed. Codes on the cart and
+    checkout write paths were deliberately not provoked - see the not_tested note in
+    conventions/bond-pet-foods-conventions.yml.

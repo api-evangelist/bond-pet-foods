@@ -1,0 +1,278 @@
+generated: '2026-08-08'
+method: derived
+source: >-
+  openapi/bond-pet-foods-store-openapi.json and openapi/bond-pet-foods-content-openapi.json,
+  themselves derived from the per-route JSON Schemas the host returns to HTTP OPTIONS
+note: >-
+  Bond Pet Foods publishes no object reference, so no id-prefix scheme or domain glossary could
+  be searched. Every entity and relationship below was derived from the response schemas the host
+  itself serves. Identifiers are plain WordPress integer post/term ids - there are no typed or
+  prefixed ids on this surface.
+id_scheme:
+  style: integer
+  detail: >-
+    All resources are keyed by an unprefixed integer id drawn from the shared WordPress
+    wp_posts / wp_terms id space. A bare id is therefore ambiguous across entity types - the same
+    integer can be a valid post id and an invalid product id. Cart line items are the exception:
+    they are keyed by `key`, a 32-character hash, not by an integer.
+domains:
+- name: commerce
+  api: bond-pet-foods:store
+  base: https://www.bondpets.com/wp-json/wc/store/v1
+  detail: WooCommerce Store API - catalog, taxonomy, cart and checkout.
+- name: content
+  api: bond-pet-foods:content
+  base: https://www.bondpets.com/wp-json/wp/v2
+  detail: WordPress REST API - posts, pages, media, taxonomies and search.
+entities:
+- name: Product
+  domain: commerce
+  route: /wc/store/v1/products
+  key: id
+  fields: 36
+  notable: [id, name, slug, parent, type, sku, prices, images, categories, tags, brands, attributes, variations, is_in_stock, is_purchasable, weight, dimensions]
+  detail: >-
+    The catalog record. `type` is simple, variable or grouped; a variable product carries a
+    `variations` array of child product ids and a `parent` pointing the other way.
+- name: ProductCategory
+  domain: commerce
+  route: /wc/store/v1/products/categories
+  key: id
+  fields: 9
+  notable: [id, name, slug, parent, count, image, review_count, permalink]
+  detail: Hierarchical taxonomy term. `parent` is self-referential.
+- name: ProductTag
+  domain: commerce
+  route: /wc/store/v1/products/tags
+  key: id
+  detail: Flat taxonomy term. Empty on this store at time of probe.
+- name: ProductBrand
+  domain: commerce
+  route: /wc/store/v1/products/brands
+  key: id
+  detail: Taxonomy term. Empty on this store at time of probe.
+- name: ProductAttribute
+  domain: commerce
+  route: /wc/store/v1/products/attributes
+  key: id
+  detail: >-
+    Attribute definition; its allowed values are Terms, fetched from
+    /products/attributes/{id}/terms. Empty on this store at time of probe.
+- name: ProductReview
+  domain: commerce
+  route: /wc/store/v1/products/reviews
+  key: id
+  detail: References a Product by product_id. Empty on this store at time of probe.
+- name: Cart
+  domain: commerce
+  route: /wc/store/v1/cart
+  key: Cart-Token (session, not an id)
+  fields: 17
+  notable: [items, items_count, coupons, shipping_rates, shipping_address, billing_address, totals, fees, errors, needs_payment, needs_shipping]
+  detail: >-
+    A session-scoped singleton, not an addressable collection. Identified by the Cart-Token
+    response header rather than by an id.
+- name: CartItem
+  domain: commerce
+  route: /wc/store/v1/cart/items/{key}
+  key: key
+  fields: 21
+  notable: [key, id, quantity, quantity_limits, name, sku, prices, totals, variation]
+  detail: >-
+    `key` is a 32-character hash, NOT the product id. `id` on a CartItem is the product or
+    variation id it references.
+- name: Checkout
+  domain: commerce
+  route: /wc/store/v1/checkout
+  key: order_id
+  fields: 13
+  notable: [order_id, status, order_key, order_number, customer_id, billing_address, shipping_address, payment_method, payment_result]
+  detail: Draft order materialized from the Cart. Produces the Order.
+- name: Order
+  domain: commerce
+  route: /wc/store/v1/order/{id}
+  key: id
+  detail: Read-only order lookup, gated by a billing-email or order-key match.
+- name: Post
+  domain: content
+  route: /wp/v2/posts
+  key: id
+  fields: 28
+  notable: [id, date, slug, status, title, content, excerpt, author, featured_media, categories, tags, meta]
+  detail: >-
+    On this site, posts are used for press coverage and company news, and several carry an
+    external `link` pointing at the original publisher rather than at bondpets.com.
+- name: Page
+  domain: content
+  route: /wp/v2/pages
+  key: id
+  fields: 26
+  notable: [id, slug, title, content, parent, menu_order, author, featured_media, template]
+  detail: 15 published pages. `parent` is self-referential.
+- name: Attachment
+  domain: content
+  route: /wp/v2/media
+  key: id
+  fields: 30
+  notable: [id, slug, title, alt_text, caption, media_type, mime_type, media_details, source_url, post]
+  detail: '`post` points at the Post or Page the media was uploaded to.'
+- name: Category
+  domain: content
+  route: /wp/v2/categories
+  key: id
+  fields: 10
+  notable: [id, name, slug, parent, count, taxonomy]
+- name: Tag
+  domain: content
+  route: /wp/v2/tags
+  key: id
+- name: Comment
+  domain: content
+  route: /wp/v2/comments
+  key: id
+  fields: 18
+  notable: [id, post, parent, author, author_name, content, status]
+- name: ContentProduct
+  domain: content
+  route: /wp/v2/product
+  key: id
+  fields: 23
+  notable: [id, slug, title, content, product_cat, product_tag, featured_media]
+  detail: >-
+    The SAME underlying WooCommerce product, exposed a second time through the WordPress post-type
+    API. It carries editorial fields (content, excerpt, featured_media) that the Store API
+    Product does not, and omits every commerce field (prices, stock, attributes). The two
+    projections share an id space - see the cross_surface relationship below.
+- name: Type
+  domain: content
+  route: /wp/v2/types
+  key: slug
+  detail: Post-type registry; names the rest_base and rest_namespace for every content type.
+- name: Taxonomy
+  domain: content
+  route: /wp/v2/taxonomies
+  key: slug
+  detail: Taxonomy registry; `types` lists which post types each taxonomy applies to.
+relationships:
+- from: Product
+  to: ProductCategory
+  type: has_many
+  via: categories[]
+- from: Product
+  to: ProductTag
+  type: has_many
+  via: tags[]
+- from: Product
+  to: ProductBrand
+  type: has_many
+  via: brands[]
+- from: Product
+  to: ProductAttribute
+  type: has_many
+  via: attributes[]
+- from: Product
+  to: Product
+  type: has_many
+  via: variations[]
+  note: Variable products own child variation products.
+- from: Product
+  to: Product
+  type: belongs_to
+  via: parent
+  note: Self-referential; a variation points back at its parent product.
+- from: ProductCategory
+  to: ProductCategory
+  type: belongs_to
+  via: parent
+- from: ProductAttribute
+  to: Term
+  type: has_many
+  via: /products/attributes/{id}/terms
+- from: ProductReview
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: Cart
+  to: CartItem
+  type: has_many
+  via: items[]
+- from: CartItem
+  to: Product
+  type: belongs_to
+  via: id
+  note: CartItem.id is a product or variation id; CartItem.key is the line-item hash.
+- from: Cart
+  to: Coupon
+  type: has_many
+  via: coupons[]
+- from: Cart
+  to: ShippingRate
+  type: has_many
+  via: shipping_rates[]
+- from: Checkout
+  to: Cart
+  type: belongs_to
+  via: Cart-Token session
+- from: Checkout
+  to: Order
+  type: has_one
+  via: order_id
+- from: Post
+  to: Category
+  type: has_many
+  via: categories[]
+- from: Post
+  to: Tag
+  type: has_many
+  via: tags[]
+- from: Post
+  to: Attachment
+  type: has_one
+  via: featured_media
+- from: Post
+  to: User
+  type: belongs_to
+  via: author
+  note: The User resource itself is 401-gated; only the integer author id is visible anonymously.
+- from: Page
+  to: Page
+  type: belongs_to
+  via: parent
+- from: Comment
+  to: Post
+  type: belongs_to
+  via: post
+- from: Comment
+  to: Comment
+  type: belongs_to
+  via: parent
+- from: Attachment
+  to: Post
+  type: belongs_to
+  via: post
+- from: ContentProduct
+  to: ProductCat
+  type: has_many
+  via: product_cat[]
+cross_surface:
+- entities: [Product, ContentProduct]
+  relation: same_record_two_projections
+  join: shared integer id in the WordPress wp_posts space
+  detail: >-
+    Neither projection is a superset. The Store API Product carries prices, stock, attributes,
+    variations and add_to_cart; the wp/v2 product carries content, excerpt, featured_media and
+    template. An agent that needs both commerce and editorial fields for one product must call
+    both APIs and join on id.
+traversal_notes:
+- >-
+  Anonymous callers can traverse the full commerce graph and the full public content graph, but
+  the User entity terminates every author edge at a bare integer - /wp/v2/users returns 401.
+- >-
+  _embed on wp/v2 collection routes inlines author, featured_media and term edges in one request,
+  which is the cheapest way to walk the content graph.
+- >-
+  There is no cross-entity search. /wp/v2/search covers posts, pages and terms only; Store API
+  products are searched separately via the `search` parameter on /wc/store/v1/products.
+render:
+  subway: null
+  detail: No subway/ diagram exists for this provider yet.

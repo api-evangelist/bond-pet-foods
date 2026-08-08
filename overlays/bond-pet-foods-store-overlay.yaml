@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: Bond Pet Foods Store API — API Evangelist enhancements
+  version: 1.0.0
+  x-generated: '2026-08-08'
+  x-method: generated
+  x-source: openapi/bond-pet-foods-store-openapi.json
+  x-purpose: >-
+    Captures API Evangelist's enhancements to the derived Store API document without mutating it.
+    The base document is a mechanical derivation of the provider's own route index and OPTIONS
+    schemas; everything added here is our annotation, kept separate so the two never blur.
+extends: ../openapi/bond-pet-foods-store-openapi.json
+actions:
+- target: $.info
+  update:
+    x-provider: Bond Pet Foods
+    x-provider-url: https://www.bondpets.com/
+    x-api-evangelist-profile: https://apis.io/provider/bond-pet-foods
+    x-surface-origin: >-
+      Incidental. This API exists because WooCommerce registers REST routes by default, not
+      because Bond Pet Foods operates a developer program. There is no documentation, no
+      changelog, no status page and no support channel for it.
+    x-catalog-scope: >-
+      The catalog served here is branded merchandise and a donation item, not the fermented
+      chicken protein Bond Pet Foods manufactures, which is sold B2B and is not represented on
+      this API.
+- target: $.info
+  update:
+    x-conventions: ../conventions/bond-pet-foods-conventions.yml
+    x-errors: ../errors/bond-pet-foods-problem-types.yml
+    x-authentication: ../authentication/bond-pet-foods-authentication.yml
+    x-lifecycle: ../lifecycle/bond-pet-foods-lifecycle.yml
+    x-data-model: ../data-model/bond-pet-foods-data-model.yml
+- target: $.info
+  update:
+    x-rate-limits:
+      signaled: false
+      note: >-
+        No rate-limit headers are emitted and no policy is published. Callers should self-limit;
+        a limit may exist and be enforced without warning.
+    x-idempotency:
+      supported: false
+      note: No idempotency key is accepted on any route of this API.
+- target: $.servers[0]
+  update:
+    x-verified: '2026-08-08'
+    x-anonymous-read: true
+- target: $.paths['/wc/store/v1/products'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-observed-total: 5
+    x-note: >-
+      Verified anonymously. x-wp-total was 5 at time of probe, one of which is named
+      "Test Product" and is a live, purchasable listing on the production store.
+- target: $.paths['/wc/store/v1/products/categories'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: One term only ("Uncategorized"); the catalog is not categorized.
+- target: $.paths['/wc/store/v1/cart'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: >-
+      Returns an empty cart and issues a Cart-Token for anonymous sessions. Read is safe; the
+      write routes on this API mutate a live production store and were deliberately not exercised.
+- target: $.paths['/wc/store/v1/batch'].post
+  update:
+    x-agent-caution: >-
+      Accepts up to 25 sub-requests. Sub-requests inherit the Nonce and Cart-Token requirements
+      of the routes they target, and are not idempotent.

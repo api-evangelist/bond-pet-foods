@@ -1,0 +1,16 @@
+generated: '2026-08-08'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.bondpets.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 26 11:34:44 2026 GMT
+  hsts: false
+domains:
+- domain: bondpets.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

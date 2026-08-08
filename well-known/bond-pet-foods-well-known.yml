@@ -1,0 +1,75 @@
+generated: '2026-08-08'
+method: probed
+source: https://www.bondpets.com/
+host: https://www.bondpets.com
+result: no-documents-found
+no_pointer_emitted: true
+no_pointer_reason: >-
+  Deliberate. Every /.well-known/ path probed returned HTTP 404 with an HTML body, so there is no
+  well-known discovery surface to point at. A `WellKnown` pointer was NOT added to apis.yml,
+  because emitting one would credit Bond Pet Foods with a discovery catalog it does not serve.
+  This file is the record of the probe, not a claim of coverage.
+soft_404_check:
+  performed: true
+  detail: >-
+    The host answers unknown paths with an HTTP 404 and an HTML body, not a 200 shell, so these
+    are true negatives rather than a single-page-app catch-all returning 200 for everything. A
+    control path (/.well-known/does-not-exist-control) was compared against the real paths and
+    returned the same 404 HTML.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+  content_type: text/html
+- path: /.well-known/openid-configuration
+  status: 404
+  content_type: text/html
+- path: /.well-known/oauth-authorization-server
+  status: 404
+  content_type: text/html
+- path: /.well-known/oauth-protected-resource
+  status: 404
+  content_type: text/html
+- path: /.well-known/api-catalog
+  status: 404
+  content_type: text/html
+- path: /.well-known/ai-plugin.json
+  status: 404
+  content_type: text/html
+- path: /.well-known/agent-card.json
+  status: 404
+  content_type: text/html
+- path: /.well-known/agent.json
+  status: 404
+  content_type: text/html
+also_probed:
+- path: /llms.txt
+  status: 404
+- path: /openapi.json
+  status: 404
+- path: /openapi.yaml
+  status: 404
+- path: /swagger.json
+  status: 404
+- path: /api-docs
+  status: 404
+- path: /docs
+  status: 404
+- path: /redoc
+  status: 404
+- path: /graphql
+  status: 404
+- path: /api
+  status: 404
+- path: /developers
+  status: 404
+- path: /developer
+  status: 404
+- path: /robots.txt
+  status: 200
+- path: /sitemap_index.xml
+  status: 200
+- path: /wp-json/
+  status: 200
+  note: >-
+    The one machine-readable discovery document this host does serve. It is a WordPress REST API
+    index, not an RFC 8615 well-known document, so it is captured under openapi/ instead.

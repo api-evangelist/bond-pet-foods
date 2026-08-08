@@ -1,0 +1,90 @@
+overlay: 1.0.0
+info:
+  title: Bond Pet Foods Content API — API Evangelist enhancements
+  version: 1.0.0
+  x-generated: '2026-08-08'
+  x-method: generated
+  x-source: openapi/bond-pet-foods-content-openapi.json
+  x-purpose: >-
+    Captures API Evangelist's enhancements to the derived Content API document without mutating
+    it. The base document is a mechanical derivation of the provider's own route index and
+    OPTIONS schemas; everything added here is our annotation.
+extends: ../openapi/bond-pet-foods-content-openapi.json
+actions:
+- target: $.info
+  update:
+    x-provider: Bond Pet Foods
+    x-provider-url: https://www.bondpets.com/
+    x-api-evangelist-profile: https://apis.io/provider/bond-pet-foods
+    x-surface-origin: >-
+      Incidental. The wp/v2 namespace is registered by WordPress core. Bond Pet Foods operates no
+      developer program and documents none of it.
+    x-plugin-contributed-namespaces: >-
+      The host's discovery index advertises 57 namespaces and 970 routes. Only wp/v2 (134 routes)
+      is described by this document; the remainder are contributed by Elementor, ElementsKit,
+      RankMath, Jetpack, Klaviyo, Wordfence, FileBird, WooCommerce admin/analytics and others,
+      are overwhelmingly credential-gated, and are not a consumer API surface.
+- target: $.info
+  update:
+    x-conventions: ../conventions/bond-pet-foods-conventions.yml
+    x-errors: ../errors/bond-pet-foods-problem-types.yml
+    x-authentication: ../authentication/bond-pet-foods-authentication.yml
+    x-lifecycle: ../lifecycle/bond-pet-foods-lifecycle.yml
+    x-data-model: ../data-model/bond-pet-foods-data-model.yml
+- target: $.info
+  update:
+    x-undeclared-parameters:
+      note: >-
+        WordPress core supports _fields, _embed and context on collection routes. They are not
+        declared in the per-route argument schemas the host publishes, so they do not appear as
+        parameters in this document, but all three were verified to work anonymously.
+      params: [_fields, _embed, context]
+- target: $.servers[0]
+  update:
+    x-verified: '2026-08-08'
+    x-anonymous-read: true
+- target: $.paths['/wp/v2/posts'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: >-
+      Public. Used on this site for press coverage and company news; many entries carry an
+      external `link` to the original publisher (PR Newswire, Symrise, AgFunderNews, vegconomist)
+      rather than to bondpets.com.
+- target: $.paths['/wp/v2/pages'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: 15 published pages, returned with full rendered content.
+- target: $.paths['/wp/v2/media'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+- target: $.paths['/wp/v2/search'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: Covers posts, pages and terms. Store API products are searched separately.
+- target: $.paths['/wp/v2/users'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 401
+    x-gated: true
+    x-error-code: rest_user_cannot_view
+    x-note: >-
+      Correctly locked down. Author edges on posts therefore terminate at a bare integer id for
+      anonymous callers.
+- target: $.paths['/wp/v2/settings'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 401
+    x-gated: true
+    x-error-code: rest_forbidden
+- target: $.paths['/wp/v2/product'].get
+  update:
+    x-verified: '2026-08-08'
+    x-verified-status: 200
+    x-note: >-
+      The same WooCommerce products as the Store API, projected as a WordPress post type. Carries
+      editorial fields the Store API omits and omits every commerce field. Join on id — see
+      ../data-model/bond-pet-foods-data-model.yml cross_surface.
