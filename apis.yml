@@ -37,49 +37,29 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: bond-pet-foods:store
-  name: Bond Pet Foods Store API
-  description: >-
-    The WooCommerce Store API served from www.bondpets.com/wp-json/wc/store/v1 - a public,
-    unauthenticated commerce surface covering the Bond Pet Foods online shop catalog (branded
-    merchandise and a coffee donation item, not the fermented protein itself, which is sold B2B),
-    plus product categories, attributes, brands, tags, reviews, collection data, cart, coupon,
-    shipping-rate and checkout operations. Read operations were verified anonymously on
-    2026-08-08; write operations require a Nonce header and a Cart-Token session.
+- aid: bond-pet-foods:bond-pet-foods-wc-store-v1-api
+  name: Bond Pet Foods Wc/store/v1 API
+  description: The wc/store/v1 API from Bond Pet Foods — 31 operation(s) for wc/store/v1.
   humanURL: https://www.bondpets.com/shop/
   baseURL: https://www.bondpets.com/wp-json/wc/store/v1
   tags:
-  - E-Commerce
-  - Products
-  - Cart
-  - Checkout
-  - WooCommerce
+  - wc/store/v1
   properties:
   - type: OpenAPI
-    url: openapi/bond-pet-foods-store-openapi.json
-  - type: Overlay
-    url: overlays/bond-pet-foods-store-overlay.yaml
-- aid: bond-pet-foods:content
-  name: Bond Pet Foods Content API
-  description: >-
-    The WordPress REST API (wp/v2) served from www.bondpets.com/wp-json/wp/v2 - posts, pages,
-    media, categories, tags, comments, taxonomies, site search and the WooCommerce product post
-    type. Collection reads are public and were verified anonymously; writes and edit-context
-    reads such as /users and /settings require authentication and return HTTP 401.
-  humanURL: https://www.bondpets.com/news/
-  baseURL: https://www.bondpets.com/wp-json/wp/v2
+    url: openapi/bond-pet-foods-wc-store-v1-api-openapi.yml
+- aid: bond-pet-foods:bond-pet-foods-wp-v2-api
+  name: Bond Pet Foods Wp/v2 API
+  description: The wp/v2 API from Bond Pet Foods — 134 operation(s) for wp/v2.
+  humanURL: https://www.bondpets.com/shop/
+  baseURL: https://www.bondpets.com/wp-json/wc/store/v1
   tags:
-  - Content
-  - Media
-  - WordPress
-  - News
-  - Search
+  - wp/v2
   properties:
   - type: OpenAPI
-    url: openapi/bond-pet-foods-content-openapi.json
-  - type: Overlay
-    url: overlays/bond-pet-foods-content-overlay.yaml
+    url: openapi/bond-pet-foods-wp-v2-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/bond-pet-foods-content-overlay.yaml
 - type: Website
   url: https://www.bondpets.com/
 - type: Company
