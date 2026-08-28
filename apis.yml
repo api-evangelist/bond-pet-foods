@@ -14,6 +14,17 @@ description: >-
   discovery index advertising 970 routes across 57 namespaces, and an anonymously readable
   WooCommerce Store API covering the merchandise catalog, categories and cart.
 url: https://raw.githubusercontent.com/api-evangelist/bond-pet-foods/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 image: https://www.bondpets.com/wp-content/uploads/2022/09/Bond_SocialShare_1_Home_Mission.jpg
 x-type: company
 x-source: harvest:secondary-market
