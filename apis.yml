@@ -25,6 +25,20 @@ deliveryModel:
   - openapi
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  probe_state: covered
+  source:
+  - authentication
+  - security
+  generated: '2026-09-03'
+  method: derived
 image: https://www.bondpets.com/wp-content/uploads/2022/09/Bond_SocialShare_1_Home_Mission.jpg
 x-type: company
 x-source: harvest:secondary-market
