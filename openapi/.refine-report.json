@@ -1,20 +1,26 @@
 {
   "provider": "bond-pet-foods",
   "sources": [
-    "bond-pet-foods-wc-store-v1-api-openapi.yml",
-    "bond-pet-foods-wp-v2-api-openapi.yml"
+    "_original/bond-pet-foods-content-openapi.json",
+    "_original/bond-pet-foods-store-openapi.json"
   ],
   "outputs": [
-    "bond-pet-foods-wc-store-v1-api-openapi.yml",
-    "bond-pet-foods-wp-v2-api-openapi.yml"
+    "bond-pet-foods-wp-v2-api-openapi.yml",
+    "bond-pet-foods-wc-store-v1-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "bond-pet-foods-wc-store-v1-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "bond-pet-foods-wp-v2-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bond-pet-foods-content-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bond-pet-foods-content-openapi.json: declared missing tag: wp/v2",
+    "bond-pet-foods-store-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "bond-pet-foods-store-openapi.json: declared missing tag: wc/store/v1",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "bond-pet-foods-wc-store-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bond-pet-foods-wp-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

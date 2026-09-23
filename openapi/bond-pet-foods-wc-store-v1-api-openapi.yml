@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Bond Pet Foods Store API (WooCommerce Store API) Wc/store/v1 API
+  title: Bond Pet Foods Store API (WooCommerce Store API)…
   version: 1.0.0
   description: 'Public, unauthenticated commerce API served by www.bondpets.com: product catalog, categories, attributes, brands, tags, reviews, cart and checkout for the Bond Pet Foods online shop. Derived from the site''s own WordPress REST discovery index and per-route OPTIONS schemas. Read operations were verified anonymously; cart and checkout writes require a Nonce header and a Cart-Token session.'
   contact:
@@ -370,7 +370,7 @@ paths:
   /wc/store/v1/cart/coupons/{code}:
     get:
       operationId: getWcStoreV1CartCouponsByCode
-      summary: GET /wc/store/v1/cart/coupons/(?P<code>[\w-]+)
+      summary: GET /wc/store/v1/cart/coupons/(?P[\w-]+)
       tags:
       - wc/store/v1
       parameters:
@@ -418,7 +418,7 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
     delete:
       operationId: deleteWcStoreV1CartCouponsByCode
-      summary: DELETE /wc/store/v1/cart/coupons/(?P<code>[\w-]+)
+      summary: DELETE /wc/store/v1/cart/coupons/(?P[\w-]+)
       tags:
       - wc/store/v1
       parameters:
@@ -603,7 +603,7 @@ paths:
   /wc/store/v1/cart/items/{key}:
     get:
       operationId: getWcStoreV1CartItemsByKey
-      summary: GET /wc/store/v1/cart/items/(?P<key>[\w-]{32})
+      summary: GET /wc/store/v1/cart/items/(?P[\w-]{32})
       tags:
       - wc/store/v1
       parameters:
@@ -652,7 +652,7 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
     post:
       operationId: postWcStoreV1CartItemsByKey
-      summary: POST /wc/store/v1/cart/items/(?P<key>[\w-]{32})
+      summary: POST /wc/store/v1/cart/items/(?P[\w-]{32})
       tags:
       - wc/store/v1
       requestBody:
@@ -697,7 +697,7 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
     put:
       operationId: putWcStoreV1CartItemsByKey
-      summary: PUT /wc/store/v1/cart/items/(?P<key>[\w-]{32})
+      summary: PUT /wc/store/v1/cart/items/(?P[\w-]{32})
       tags:
       - wc/store/v1
       requestBody:
@@ -742,7 +742,7 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
     patch:
       operationId: patchWcStoreV1CartItemsByKey
-      summary: PATCH /wc/store/v1/cart/items/(?P<key>[\w-]{32})
+      summary: PATCH /wc/store/v1/cart/items/(?P[\w-]{32})
       tags:
       - wc/store/v1
       requestBody:
@@ -787,7 +787,7 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
     delete:
       operationId: deleteWcStoreV1CartItemsByKey
-      summary: DELETE /wc/store/v1/cart/items/(?P<key>[\w-]{32})
+      summary: DELETE /wc/store/v1/cart/items/(?P[\w-]{32})
       tags:
       - wc/store/v1
       parameters:
@@ -1859,7 +1859,7 @@ paths:
   /wc/store/v1/checkout/{id}:
     post:
       operationId: postWcStoreV1CheckoutById
-      summary: POST /wc/store/v1/checkout/(?P<id>[\d]+)
+      summary: POST /wc/store/v1/checkout/(?P[\d]+)
       tags:
       - wc/store/v1
       requestBody:
@@ -2112,7 +2112,7 @@ paths:
   /wc/store/v1/order/{id}:
     get:
       operationId: getWcStoreV1OrderById
-      summary: GET /wc/store/v1/order/(?P<id>[\d]+)
+      summary: GET /wc/store/v1/order/(?P[\d]+)
       tags:
       - wc/store/v1
       parameters:
@@ -2503,7 +2503,7 @@ paths:
   /wc/store/v1/products/{id}:
     get:
       operationId: getWcStoreV1ProductsById
-      summary: GET /wc/store/v1/products/(?P<id>[\d]+)
+      summary: GET /wc/store/v1/products/(?P[\d]+)
       tags:
       - wc/store/v1
       parameters:
@@ -2553,7 +2553,7 @@ paths:
   /wc/store/v1/products/{slug}:
     get:
       operationId: getWcStoreV1ProductsBySlug
-      summary: GET /wc/store/v1/products/(?P<slug>[\S]+)
+      summary: GET /wc/store/v1/products/(?P[\S]+)
       tags:
       - wc/store/v1
       parameters:
@@ -2644,7 +2644,7 @@ paths:
   /wc/store/v1/products/attributes/{attribute_id}/terms:
     get:
       operationId: getWcStoreV1ProductsAttributesByAttributeIdTerms
-      summary: GET /wc/store/v1/products/attributes/(?P<attribute_id>[\d]+)/terms
+      summary: GET /wc/store/v1/products/attributes/(?P[\d]+)/terms
       tags:
       - wc/store/v1
       parameters:
@@ -2769,7 +2769,7 @@ paths:
   /wc/store/v1/products/attributes/{id}:
     get:
       operationId: getWcStoreV1ProductsAttributesById
-      summary: GET /wc/store/v1/products/attributes/(?P<id>[\d]+)
+      summary: GET /wc/store/v1/products/attributes/(?P[\d]+)
       tags:
       - wc/store/v1
       parameters:
@@ -2934,7 +2934,7 @@ paths:
   /wc/store/v1/products/brands/{identifier}:
     get:
       operationId: getWcStoreV1ProductsBrandsByIdentifier
-      summary: GET /wc/store/v1/products/brands/(?P<identifier>[\w-]+)
+      summary: GET /wc/store/v1/products/brands/(?P[\w-]+)
       tags:
       - wc/store/v1
       parameters:
@@ -3100,7 +3100,7 @@ paths:
   /wc/store/v1/products/categories/{id}:
     get:
       operationId: getWcStoreV1ProductsCategoriesById
-      summary: GET /wc/store/v1/products/categories/(?P<id>[\d]+)
+      summary: GET /wc/store/v1/products/categories/(?P[\d]+)
       tags:
       - wc/store/v1
       parameters:
@@ -3761,27 +3761,611 @@ paths:
                 $ref: '#/components/schemas/WpRestError'
 components:
   schemas:
-    Term:
+    Product:
       type: object
       properties:
         id:
           description: Unique identifier for the resource.
           type: integer
         name:
-          description: Term name.
+          description: Product name.
           type: string
         slug:
-          description: String based identifier for the term.
-          type: string
-        description:
-          description: Term description.
+          description: Product slug.
           type: string
         parent:
-          description: Parent term ID, if applicable.
+          description: ID of the parent product, if applicable.
           type: integer
-        count:
-          description: Number of objects (posts of any type) assigned to the term.
+        type:
+          description: Product type.
+          type: string
+        variation:
+          description: Product variation attributes, if applicable.
+          type: string
+        permalink:
+          description: Product URL.
+          type: string
+          format: uri
+        short_description:
+          description: Product short description in HTML format.
+          type: string
+        description:
+          description: Product full description in HTML format.
+          type: string
+        on_sale:
+          description: Is the product on sale?
+          type: boolean
+        sku:
+          description: Unique identifier.
+          type: string
+        prices:
+          description: Price data provided using the smallest unit of the currency.
+          type: object
+          properties:
+            currency_code:
+              description: Currency code (in ISO format) for returned prices.
+              type: string
+            currency_symbol:
+              description: Currency symbol for the currency which can be used to format returned prices.
+              type: string
+            currency_minor_unit:
+              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
+              type: integer
+            currency_decimal_separator:
+              description: Decimal separator for the currency which can be used to format returned prices.
+              type: string
+            currency_thousand_separator:
+              description: Thousand separator for the currency which can be used to format returned prices.
+              type: string
+            currency_prefix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            currency_suffix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            price:
+              description: Current product price.
+              type: string
+            regular_price:
+              description: Regular product price.
+              type: string
+            sale_price:
+              description: Sale product price, if applicable.
+              type: string
+            price_range:
+              description: Price range, if applicable.
+              type:
+              - object
+              - 'null'
+              properties:
+                min_amount:
+                  description: Price amount.
+                  type: string
+                max_amount:
+                  description: Price amount.
+                  type: string
+        price_html:
+          description: Price string formatted as HTML.
+          type: string
+        average_rating:
+          description: Reviews average rating.
+          type: string
+        review_count:
+          description: Amount of reviews that the product has.
           type: integer
+        images:
+          description: List of images.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Image ID.
+                type: integer
+              src:
+                description: Full size image URL.
+                type: string
+                format: uri
+              thumbnail:
+                description: Thumbnail URL.
+                type: string
+                format: uri
+              srcset:
+                description: Full size image srcset for responsive images.
+                type: string
+              sizes:
+                description: Full size image sizes for responsive images.
+                type: string
+              thumbnail_srcset:
+                description: Thumbnail srcset for responsive images.
+                type: string
+              thumbnail_sizes:
+                description: Thumbnail sizes for responsive images.
+                type: string
+              name:
+                description: Image name.
+                type: string
+              alt:
+                description: Image alternative text.
+                type: string
+        categories:
+          description: List of categories, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Category ID
+                type: number
+              name:
+                description: Category name
+                type: string
+              slug:
+                description: Category slug
+                type: string
+              link:
+                description: Category link
+                type: string
+        tags:
+          description: List of tags, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Tag ID
+                type: number
+              name:
+                description: Tag name
+                type: string
+              slug:
+                description: Tag slug
+                type: string
+              link:
+                description: Tag link.
+                type: string
+        brands:
+          description: List of brands, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Brand ID
+                type: number
+              name:
+                description: Brand name
+                type: string
+              slug:
+                description: Brand slug
+                type: string
+              link:
+                description: Brand link
+                type: string
+        attributes:
+          description: List of attributes (taxonomy terms) assigned to the product. For variable products, these are mapped to variations (see the `variations` field).
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: The attribute ID, or 0 if the attribute is not taxonomy based.
+                type: integer
+              name:
+                description: The attribute name.
+                type: string
+              taxonomy:
+                description: The attribute taxonomy, or null if the attribute is not taxonomy based.
+                type: string
+              has_variations:
+                description: True if this attribute is used by product variations.
+                type: boolean
+              terms:
+                description: List of assigned attribute terms.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: The term ID, or 0 if the attribute is not a global attribute.
+                      type: integer
+                    name:
+                      description: The term name.
+                      type: string
+                    slug:
+                      description: The term slug.
+                      type: string
+                    default:
+                      description: If this is a default attribute
+                      type: boolean
+        variations:
+          description: List of variation IDs, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: The attribute ID, or 0 if the attribute is not taxonomy based.
+                type: integer
+              attributes:
+                description: List of variation attributes.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: The attribute name.
+                      type: string
+                    value:
+                      description: The assigned attribute.
+                      type: string
+        grouped_products:
+          description: List of grouped product IDs, if applicable.
+          type: array
+          items:
+            description: List of grouped product ids.
+            type: integer
+        has_options:
+          description: Does the product have additional options before it can be added to the cart?
+          type: boolean
+        is_purchasable:
+          description: Is the product purchasable?
+          type: boolean
+        is_in_stock:
+          description: Is the product in stock?
+          type: boolean
+        is_on_backorder:
+          description: Is the product stock backordered? This will also return false if backorder notifications are turned off.
+          type: boolean
+        stock_availability:
+          description: Information about the product's availability.
+          type: object
+          properties:
+            text:
+              description: Stock availability text.
+              type: string
+            class:
+              description: Stock availability class.
+              type: string
+        low_stock_remaining:
+          description: Quantity left in stock if stock is low, or null if not applicable.
+          type:
+          - number
+          - 'null'
+        sold_individually:
+          description: If true, only one item of this product is allowed for purchase in a single order.
+          type: boolean
+        weight:
+          description: Product weight (lbs).
+          type: string
+        dimensions:
+          description: Product dimensions.
+          type: object
+          properties:
+            length:
+              description: Product length (in).
+              type: string
+            width:
+              description: Product width (in).
+              type: string
+            height:
+              description: Product height (in).
+              type: string
+        formatted_weight:
+          description: Product weight formatted for display (e.g. "2.5 kg").
+          type: string
+        formatted_dimensions:
+          description: Product dimensions formatted for display (e.g. "10 × 5 × 3 cm").
+          type: string
+        add_to_cart:
+          description: Add to cart button parameters.
+          type: object
+          properties:
+            text:
+              description: Button text.
+              type: string
+            description:
+              description: Button description.
+              type: string
+            url:
+              description: Add to cart URL.
+              type: string
+            minimum:
+              description: The minimum quantity that can be added to the cart.
+              type: number
+            maximum:
+              description: The maximum quantity that can be added to the cart.
+              type: number
+            multiple_of:
+              description: The amount that quantities increment by. Quantity must be an multiple of this value.
+              type: number
+              default: 1
+            single_text:
+              description: Button text in the single product page.
+              type: string
+        is_password_protected:
+          description: Whether the product requires a password to access its content.
+          type: boolean
+        extensions:
+          type: object
+          properties: {}
+    CartCoupon:
+      type: object
+      properties:
+        code:
+          description: The coupon's unique code.
+          type: string
+        discount_type:
+          description: The discount type for the coupon (e.g. percentage or fixed amount)
+          type: string
+        totals:
+          description: Total amounts provided using the smallest unit of the currency.
+          type: object
+          properties:
+            currency_code:
+              description: Currency code (in ISO format) for returned prices.
+              type: string
+            currency_symbol:
+              description: Currency symbol for the currency which can be used to format returned prices.
+              type: string
+            currency_minor_unit:
+              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
+              type: integer
+            currency_decimal_separator:
+              description: Decimal separator for the currency which can be used to format returned prices.
+              type: string
+            currency_thousand_separator:
+              description: Thousand separator for the currency which can be used to format returned prices.
+              type: string
+            currency_prefix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            currency_suffix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            total_discount:
+              description: Total discount applied by this coupon.
+              type: string
+            total_discount_tax:
+              description: Total tax removed due to discount applied by this coupon.
+              type: string
+    CartItem:
+      type: object
+      properties:
+        key:
+          description: Unique identifier for the item.
+          type: string
+        type:
+          description: The item type.
+          type: string
+        id:
+          description: The item product or variation ID.
+          type: integer
+        quantity:
+          description: Quantity of this item.
+          type: number
+        quantity_limits:
+          description: How the quantity of this item should be controlled, for example, any limits in place.
+          type: object
+          properties:
+            minimum:
+              description: The minimum quantity allowed for this line item.
+              type: number
+            maximum:
+              description: The maximum quantity allowed for this line item.
+              type: number
+            multiple_of:
+              description: The amount that quantities increment by. Quantity must be an multiple of this value.
+              type: number
+              default: 1
+            editable:
+              description: If the quantity is editable or fixed.
+              type: boolean
+              default: true
+        name:
+          description: Product name.
+          type: string
+        short_description:
+          description: Product short description in HTML format.
+          type: string
+        description:
+          description: Product full description in HTML format.
+          type: string
+        sku:
+          description: Stock keeping unit, if applicable.
+          type: string
+        low_stock_remaining:
+          description: Quantity left in stock if stock is low, or null if not applicable.
+          type:
+          - number
+          - 'null'
+        backorders_allowed:
+          description: True if backorders are allowed past stock availability.
+          type:
+          - boolean
+        show_backorder_badge:
+          description: True if the product is on backorder.
+          type:
+          - boolean
+        sold_individually:
+          description: If true, only one item of this product is allowed for purchase in a single order.
+          type: boolean
+        permalink:
+          description: Product URL.
+          type: string
+          format: uri
+        images:
+          description: List of images.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Image ID.
+                type: integer
+              src:
+                description: Full size image URL.
+                type: string
+                format: uri
+              thumbnail:
+                description: Thumbnail URL.
+                type: string
+                format: uri
+              srcset:
+                description: Full size image srcset for responsive images.
+                type: string
+              sizes:
+                description: Full size image sizes for responsive images.
+                type: string
+              thumbnail_srcset:
+                description: Thumbnail srcset for responsive images.
+                type: string
+              thumbnail_sizes:
+                description: Thumbnail sizes for responsive images.
+                type: string
+              name:
+                description: Image name.
+                type: string
+              alt:
+                description: Image alternative text.
+                type: string
+        variation:
+          description: Chosen attributes (for variations).
+          type: array
+          items:
+            type: object
+            properties:
+              raw_attribute:
+                description: Variation system generated attribute name.
+                type: string
+              attribute:
+                description: Variation attribute name.
+                type: string
+              value:
+                description: Variation attribute value.
+                type: string
+        item_data:
+          description: Metadata related to the item
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: Name of the metadata.
+                type: string
+              value:
+                description: Value of the metadata.
+                type: string
+              display:
+                description: Optionally, how the metadata value should be displayed to the user.
+                type: string
+        prices:
+          description: Price data for the product in the current line item, including or excluding taxes based on the "display prices during cart and checkout" setting. Provided using the smallest unit of the currency.
+          type: object
+          properties:
+            currency_code:
+              description: Currency code (in ISO format) for returned prices.
+              type: string
+            currency_symbol:
+              description: Currency symbol for the currency which can be used to format returned prices.
+              type: string
+            currency_minor_unit:
+              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
+              type: integer
+            currency_decimal_separator:
+              description: Decimal separator for the currency which can be used to format returned prices.
+              type: string
+            currency_thousand_separator:
+              description: Thousand separator for the currency which can be used to format returned prices.
+              type: string
+            currency_prefix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            currency_suffix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            price:
+              description: Current product price.
+              type: string
+            regular_price:
+              description: Regular product price.
+              type: string
+            sale_price:
+              description: Sale product price, if applicable.
+              type: string
+            price_range:
+              description: Price range, if applicable.
+              type:
+              - object
+              - 'null'
+              properties:
+                min_amount:
+                  description: Price amount.
+                  type: string
+                max_amount:
+                  description: Price amount.
+                  type: string
+            raw_prices:
+              description: Raw unrounded product prices used in calculations. Provided using a higher unit of precision than the currency.
+              type:
+              - object
+              - 'null'
+              properties:
+                precision:
+                  description: Decimal precision of the returned prices.
+                  type: integer
+                price:
+                  description: Current product price.
+                  type: string
+                regular_price:
+                  description: Regular product price.
+                  type: string
+                sale_price:
+                  description: Sale product price, if applicable.
+                  type: string
+        totals:
+          description: Item total amounts provided using the smallest unit of the currency.
+          type: object
+          properties:
+            currency_code:
+              description: Currency code (in ISO format) for returned prices.
+              type: string
+            currency_symbol:
+              description: Currency symbol for the currency which can be used to format returned prices.
+              type: string
+            currency_minor_unit:
+              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
+              type: integer
+            currency_decimal_separator:
+              description: Decimal separator for the currency which can be used to format returned prices.
+              type: string
+            currency_thousand_separator:
+              description: Thousand separator for the currency which can be used to format returned prices.
+              type: string
+            currency_prefix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            currency_suffix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            line_subtotal:
+              description: Line subtotal (the price of the product before coupon discounts have been applied).
+              type: string
+            line_subtotal_tax:
+              description: Line subtotal tax.
+              type: string
+            line_total:
+              description: Line total (the price of the product after coupon discounts have been applied).
+              type: string
+            line_total_tax:
+              description: Line total tax.
+              type: string
+        catalog_visibility:
+          description: Whether the product is visible in the catalog
+          type: string
+        extensions:
+          type: object
+          properties: {}
     Cart:
       type: object
       properties:
@@ -4740,303 +5324,91 @@ components:
         extensions:
           type: object
           properties: {}
-    WpRestError:
-      type: object
-      description: The WordPress REST API error envelope, returned for every 4xx/5xx.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-        message:
-          type: string
-          description: Human-readable error message.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
-      required:
-      - code
-      - message
-      - data
-    CartItem:
+    ProductBrand:
       type: object
       properties:
-        key:
-          description: Unique identifier for the item.
-          type: string
-        type:
-          description: The item type.
-          type: string
         id:
-          description: The item product or variation ID.
+          description: Unique identifier for the resource.
           type: integer
-        quantity:
-          description: Quantity of this item.
-          type: number
-        quantity_limits:
-          description: How the quantity of this item should be controlled, for example, any limits in place.
-          type: object
-          properties:
-            minimum:
-              description: The minimum quantity allowed for this line item.
-              type: number
-            maximum:
-              description: The maximum quantity allowed for this line item.
-              type: number
-            multiple_of:
-              description: The amount that quantities increment by. Quantity must be an multiple of this value.
-              type: number
-              default: 1
-            editable:
-              description: If the quantity is editable or fixed.
-              type: boolean
-              default: true
         name:
-          description: Product name.
+          description: Term name.
           type: string
-        short_description:
-          description: Product short description in HTML format.
+        slug:
+          description: String based identifier for the term.
           type: string
         description:
-          description: Product full description in HTML format.
+          description: Term description.
           type: string
-        sku:
-          description: Stock keeping unit, if applicable.
-          type: string
-        low_stock_remaining:
-          description: Quantity left in stock if stock is low, or null if not applicable.
-          type:
-          - number
-          - 'null'
-        backorders_allowed:
-          description: True if backorders are allowed past stock availability.
-          type:
-          - boolean
-        show_backorder_badge:
-          description: True if the product is on backorder.
-          type:
-          - boolean
-        sold_individually:
-          description: If true, only one item of this product is allowed for purchase in a single order.
-          type: boolean
+        parent:
+          description: Parent term ID, if applicable.
+          type: integer
+        count:
+          description: Number of objects (posts of any type) assigned to the term.
+          type: integer
+        image:
+          description: Brand image.
+          type: object
+          properties:
+            id:
+              description: Image ID.
+              type: integer
+            src:
+              description: Full size image URL.
+              type: string
+              format: uri
+            thumbnail:
+              description: Thumbnail URL.
+              type: string
+              format: uri
+            srcset:
+              description: Full size image srcset for responsive images.
+              type: string
+            sizes:
+              description: Full size image sizes for responsive images.
+              type: string
+            thumbnail_srcset:
+              description: Thumbnail srcset for responsive images.
+              type: string
+            thumbnail_sizes:
+              description: Thumbnail sizes for responsive images.
+              type: string
+            name:
+              description: Image name.
+              type: string
+            alt:
+              description: Image alternative text.
+              type: string
+        review_count:
+          description: Number of reviews for products of this brand.
+          type: integer
         permalink:
-          description: Product URL.
+          description: Brand URL.
           type: string
           format: uri
-        images:
-          description: List of images.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: Image ID.
-                type: integer
-              src:
-                description: Full size image URL.
-                type: string
-                format: uri
-              thumbnail:
-                description: Thumbnail URL.
-                type: string
-                format: uri
-              srcset:
-                description: Full size image srcset for responsive images.
-                type: string
-              sizes:
-                description: Full size image sizes for responsive images.
-                type: string
-              thumbnail_srcset:
-                description: Thumbnail srcset for responsive images.
-                type: string
-              thumbnail_sizes:
-                description: Thumbnail sizes for responsive images.
-                type: string
-              name:
-                description: Image name.
-                type: string
-              alt:
-                description: Image alternative text.
-                type: string
-        variation:
-          description: Chosen attributes (for variations).
-          type: array
-          items:
-            type: object
-            properties:
-              raw_attribute:
-                description: Variation system generated attribute name.
-                type: string
-              attribute:
-                description: Variation attribute name.
-                type: string
-              value:
-                description: Variation attribute value.
-                type: string
-        item_data:
-          description: Metadata related to the item
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                description: Name of the metadata.
-                type: string
-              value:
-                description: Value of the metadata.
-                type: string
-              display:
-                description: Optionally, how the metadata value should be displayed to the user.
-                type: string
-        prices:
-          description: Price data for the product in the current line item, including or excluding taxes based on the "display prices during cart and checkout" setting. Provided using the smallest unit of the currency.
-          type: object
-          properties:
-            currency_code:
-              description: Currency code (in ISO format) for returned prices.
-              type: string
-            currency_symbol:
-              description: Currency symbol for the currency which can be used to format returned prices.
-              type: string
-            currency_minor_unit:
-              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
-              type: integer
-            currency_decimal_separator:
-              description: Decimal separator for the currency which can be used to format returned prices.
-              type: string
-            currency_thousand_separator:
-              description: Thousand separator for the currency which can be used to format returned prices.
-              type: string
-            currency_prefix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            currency_suffix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            price:
-              description: Current product price.
-              type: string
-            regular_price:
-              description: Regular product price.
-              type: string
-            sale_price:
-              description: Sale product price, if applicable.
-              type: string
-            price_range:
-              description: Price range, if applicable.
-              type:
-              - object
-              - 'null'
-              properties:
-                min_amount:
-                  description: Price amount.
-                  type: string
-                max_amount:
-                  description: Price amount.
-                  type: string
-            raw_prices:
-              description: Raw unrounded product prices used in calculations. Provided using a higher unit of precision than the currency.
-              type:
-              - object
-              - 'null'
-              properties:
-                precision:
-                  description: Decimal precision of the returned prices.
-                  type: integer
-                price:
-                  description: Current product price.
-                  type: string
-                regular_price:
-                  description: Regular product price.
-                  type: string
-                sale_price:
-                  description: Sale product price, if applicable.
-                  type: string
-        totals:
-          description: Item total amounts provided using the smallest unit of the currency.
-          type: object
-          properties:
-            currency_code:
-              description: Currency code (in ISO format) for returned prices.
-              type: string
-            currency_symbol:
-              description: Currency symbol for the currency which can be used to format returned prices.
-              type: string
-            currency_minor_unit:
-              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
-              type: integer
-            currency_decimal_separator:
-              description: Decimal separator for the currency which can be used to format returned prices.
-              type: string
-            currency_thousand_separator:
-              description: Thousand separator for the currency which can be used to format returned prices.
-              type: string
-            currency_prefix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            currency_suffix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            line_subtotal:
-              description: Line subtotal (the price of the product before coupon discounts have been applied).
-              type: string
-            line_subtotal_tax:
-              description: Line subtotal tax.
-              type: string
-            line_total:
-              description: Line total (the price of the product after coupon discounts have been applied).
-              type: string
-            line_total_tax:
-              description: Line total tax.
-              type: string
-        catalog_visibility:
-          description: Whether the product is visible in the catalog
-          type: string
-        extensions:
-          type: object
-          properties: {}
-    CartCoupon:
+    ProductAttribute:
       type: object
       properties:
-        code:
-          description: The coupon's unique code.
+        id:
+          description: Unique identifier for the resource.
+          type: integer
+        name:
+          description: Attribute name.
           type: string
-        discount_type:
-          description: The discount type for the coupon (e.g. percentage or fixed amount)
+        taxonomy:
+          description: The attribute taxonomy name.
           type: string
-        totals:
-          description: Total amounts provided using the smallest unit of the currency.
-          type: object
-          properties:
-            currency_code:
-              description: Currency code (in ISO format) for returned prices.
-              type: string
-            currency_symbol:
-              description: Currency symbol for the currency which can be used to format returned prices.
-              type: string
-            currency_minor_unit:
-              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
-              type: integer
-            currency_decimal_separator:
-              description: Decimal separator for the currency which can be used to format returned prices.
-              type: string
-            currency_thousand_separator:
-              description: Thousand separator for the currency which can be used to format returned prices.
-              type: string
-            currency_prefix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            currency_suffix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            total_discount:
-              description: Total discount applied by this coupon.
-              type: string
-            total_discount_tax:
-              description: Total tax removed due to discount applied by this coupon.
-              type: string
+        type:
+          description: Attribute type.
+          type: string
+        order:
+          description: How terms in this attribute are sorted by default.
+          type: string
+        has_archives:
+          description: If this attribute has term archive pages.
+          type: boolean
+        count:
+          description: Number of terms in the attribute taxonomy.
+          type: integer
     ProductCategory:
       type: object
       properties:
@@ -5098,6 +5470,134 @@ components:
           description: Category URL.
           type: string
           format: uri
+    Term:
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the resource.
+          type: integer
+        name:
+          description: Term name.
+          type: string
+        slug:
+          description: String based identifier for the term.
+          type: string
+        description:
+          description: Term description.
+          type: string
+        parent:
+          description: Parent term ID, if applicable.
+          type: integer
+        count:
+          description: Number of objects (posts of any type) assigned to the term.
+          type: integer
+    WpRestError:
+      type: object
+      description: The WordPress REST API error envelope, returned for every 4xx/5xx.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+      required:
+      - code
+      - message
+      - data
+    ProductReview:
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the resource.
+          type: integer
+        date_created:
+          description: The date the review was created, in the site's timezone.
+          type: string
+          format: date-time
+        formatted_date_created:
+          description: The date the review was created, in the site's timezone in human-readable format.
+          type: string
+        date_created_gmt:
+          description: The date the review was created, as GMT.
+          type: string
+          format: date-time
+        product_id:
+          description: Unique identifier for the product that the review belongs to.
+          type: integer
+        product_name:
+          description: Name of the product that the review belongs to.
+          type: string
+        product_permalink:
+          description: Permalink of the product that the review belongs to.
+          type: string
+        product_image:
+          description: Image of the product that the review belongs to.
+          type: object
+          properties:
+            id:
+              description: Image ID.
+              type: integer
+            src:
+              description: Full size image URL.
+              type: string
+              format: uri
+            thumbnail:
+              description: Thumbnail URL.
+              type: string
+              format: uri
+            srcset:
+              description: Full size image srcset for responsive images.
+              type: string
+            sizes:
+              description: Full size image sizes for responsive images.
+              type: string
+            thumbnail_srcset:
+              description: Thumbnail srcset for responsive images.
+              type: string
+            thumbnail_sizes:
+              description: Thumbnail sizes for responsive images.
+              type: string
+            name:
+              description: Image name.
+              type: string
+            alt:
+              description: Image alternative text.
+              type: string
+        reviewer:
+          description: Reviewer name.
+          type: string
+        review:
+          description: The content of the review.
+          type: string
+        rating:
+          description: Review rating (0 to 5).
+          type: integer
+        verified:
+          description: Shows if the reviewer bought the product or not.
+          type: boolean
+        reviewer_avatar_urls:
+          description: Avatar URLs for the object reviewer.
+          type: object
+          properties:
+            '24':
+              description: Avatar URL with image size of 24 pixels.
+              type: string
+              format: uri
+            '48':
+              description: Avatar URL with image size of 48 pixels.
+              type: string
+              format: uri
+            '96':
+              description: Avatar URL with image size of 96 pixels.
+              type: string
+              format: uri
     Checkout:
       type: object
       properties:
@@ -5339,506 +5839,6 @@ components:
                   type:
                   - string
                   - 'null'
-    ProductAttribute:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the resource.
-          type: integer
-        name:
-          description: Attribute name.
-          type: string
-        taxonomy:
-          description: The attribute taxonomy name.
-          type: string
-        type:
-          description: Attribute type.
-          type: string
-        order:
-          description: How terms in this attribute are sorted by default.
-          type: string
-        has_archives:
-          description: If this attribute has term archive pages.
-          type: boolean
-        count:
-          description: Number of terms in the attribute taxonomy.
-          type: integer
-    Product:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the resource.
-          type: integer
-        name:
-          description: Product name.
-          type: string
-        slug:
-          description: Product slug.
-          type: string
-        parent:
-          description: ID of the parent product, if applicable.
-          type: integer
-        type:
-          description: Product type.
-          type: string
-        variation:
-          description: Product variation attributes, if applicable.
-          type: string
-        permalink:
-          description: Product URL.
-          type: string
-          format: uri
-        short_description:
-          description: Product short description in HTML format.
-          type: string
-        description:
-          description: Product full description in HTML format.
-          type: string
-        on_sale:
-          description: Is the product on sale?
-          type: boolean
-        sku:
-          description: Unique identifier.
-          type: string
-        prices:
-          description: Price data provided using the smallest unit of the currency.
-          type: object
-          properties:
-            currency_code:
-              description: Currency code (in ISO format) for returned prices.
-              type: string
-            currency_symbol:
-              description: Currency symbol for the currency which can be used to format returned prices.
-              type: string
-            currency_minor_unit:
-              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
-              type: integer
-            currency_decimal_separator:
-              description: Decimal separator for the currency which can be used to format returned prices.
-              type: string
-            currency_thousand_separator:
-              description: Thousand separator for the currency which can be used to format returned prices.
-              type: string
-            currency_prefix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            currency_suffix:
-              description: Price prefix for the currency which can be used to format returned prices.
-              type: string
-            price:
-              description: Current product price.
-              type: string
-            regular_price:
-              description: Regular product price.
-              type: string
-            sale_price:
-              description: Sale product price, if applicable.
-              type: string
-            price_range:
-              description: Price range, if applicable.
-              type:
-              - object
-              - 'null'
-              properties:
-                min_amount:
-                  description: Price amount.
-                  type: string
-                max_amount:
-                  description: Price amount.
-                  type: string
-        price_html:
-          description: Price string formatted as HTML.
-          type: string
-        average_rating:
-          description: Reviews average rating.
-          type: string
-        review_count:
-          description: Amount of reviews that the product has.
-          type: integer
-        images:
-          description: List of images.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: Image ID.
-                type: integer
-              src:
-                description: Full size image URL.
-                type: string
-                format: uri
-              thumbnail:
-                description: Thumbnail URL.
-                type: string
-                format: uri
-              srcset:
-                description: Full size image srcset for responsive images.
-                type: string
-              sizes:
-                description: Full size image sizes for responsive images.
-                type: string
-              thumbnail_srcset:
-                description: Thumbnail srcset for responsive images.
-                type: string
-              thumbnail_sizes:
-                description: Thumbnail sizes for responsive images.
-                type: string
-              name:
-                description: Image name.
-                type: string
-              alt:
-                description: Image alternative text.
-                type: string
-        categories:
-          description: List of categories, if applicable.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: Category ID
-                type: number
-              name:
-                description: Category name
-                type: string
-              slug:
-                description: Category slug
-                type: string
-              link:
-                description: Category link
-                type: string
-        tags:
-          description: List of tags, if applicable.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: Tag ID
-                type: number
-              name:
-                description: Tag name
-                type: string
-              slug:
-                description: Tag slug
-                type: string
-              link:
-                description: Tag link.
-                type: string
-        brands:
-          description: List of brands, if applicable.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: Brand ID
-                type: number
-              name:
-                description: Brand name
-                type: string
-              slug:
-                description: Brand slug
-                type: string
-              link:
-                description: Brand link
-                type: string
-        attributes:
-          description: List of attributes (taxonomy terms) assigned to the product. For variable products, these are mapped to variations (see the `variations` field).
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: The attribute ID, or 0 if the attribute is not taxonomy based.
-                type: integer
-              name:
-                description: The attribute name.
-                type: string
-              taxonomy:
-                description: The attribute taxonomy, or null if the attribute is not taxonomy based.
-                type: string
-              has_variations:
-                description: True if this attribute is used by product variations.
-                type: boolean
-              terms:
-                description: List of assigned attribute terms.
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      description: The term ID, or 0 if the attribute is not a global attribute.
-                      type: integer
-                    name:
-                      description: The term name.
-                      type: string
-                    slug:
-                      description: The term slug.
-                      type: string
-                    default:
-                      description: If this is a default attribute
-                      type: boolean
-        variations:
-          description: List of variation IDs, if applicable.
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                description: The attribute ID, or 0 if the attribute is not taxonomy based.
-                type: integer
-              attributes:
-                description: List of variation attributes.
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      description: The attribute name.
-                      type: string
-                    value:
-                      description: The assigned attribute.
-                      type: string
-        grouped_products:
-          description: List of grouped product IDs, if applicable.
-          type: array
-          items:
-            description: List of grouped product ids.
-            type: integer
-        has_options:
-          description: Does the product have additional options before it can be added to the cart?
-          type: boolean
-        is_purchasable:
-          description: Is the product purchasable?
-          type: boolean
-        is_in_stock:
-          description: Is the product in stock?
-          type: boolean
-        is_on_backorder:
-          description: Is the product stock backordered? This will also return false if backorder notifications are turned off.
-          type: boolean
-        stock_availability:
-          description: Information about the product's availability.
-          type: object
-          properties:
-            text:
-              description: Stock availability text.
-              type: string
-            class:
-              description: Stock availability class.
-              type: string
-        low_stock_remaining:
-          description: Quantity left in stock if stock is low, or null if not applicable.
-          type:
-          - number
-          - 'null'
-        sold_individually:
-          description: If true, only one item of this product is allowed for purchase in a single order.
-          type: boolean
-        weight:
-          description: Product weight (lbs).
-          type: string
-        dimensions:
-          description: Product dimensions.
-          type: object
-          properties:
-            length:
-              description: Product length (in).
-              type: string
-            width:
-              description: Product width (in).
-              type: string
-            height:
-              description: Product height (in).
-              type: string
-        formatted_weight:
-          description: Product weight formatted for display (e.g. "2.5 kg").
-          type: string
-        formatted_dimensions:
-          description: Product dimensions formatted for display (e.g. "10 × 5 × 3 cm").
-          type: string
-        add_to_cart:
-          description: Add to cart button parameters.
-          type: object
-          properties:
-            text:
-              description: Button text.
-              type: string
-            description:
-              description: Button description.
-              type: string
-            url:
-              description: Add to cart URL.
-              type: string
-            minimum:
-              description: The minimum quantity that can be added to the cart.
-              type: number
-            maximum:
-              description: The maximum quantity that can be added to the cart.
-              type: number
-            multiple_of:
-              description: The amount that quantities increment by. Quantity must be an multiple of this value.
-              type: number
-              default: 1
-            single_text:
-              description: Button text in the single product page.
-              type: string
-        is_password_protected:
-          description: Whether the product requires a password to access its content.
-          type: boolean
-        extensions:
-          type: object
-          properties: {}
-    ProductReview:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the resource.
-          type: integer
-        date_created:
-          description: The date the review was created, in the site's timezone.
-          type: string
-          format: date-time
-        formatted_date_created:
-          description: The date the review was created, in the site's timezone in human-readable format.
-          type: string
-        date_created_gmt:
-          description: The date the review was created, as GMT.
-          type: string
-          format: date-time
-        product_id:
-          description: Unique identifier for the product that the review belongs to.
-          type: integer
-        product_name:
-          description: Name of the product that the review belongs to.
-          type: string
-        product_permalink:
-          description: Permalink of the product that the review belongs to.
-          type: string
-        product_image:
-          description: Image of the product that the review belongs to.
-          type: object
-          properties:
-            id:
-              description: Image ID.
-              type: integer
-            src:
-              description: Full size image URL.
-              type: string
-              format: uri
-            thumbnail:
-              description: Thumbnail URL.
-              type: string
-              format: uri
-            srcset:
-              description: Full size image srcset for responsive images.
-              type: string
-            sizes:
-              description: Full size image sizes for responsive images.
-              type: string
-            thumbnail_srcset:
-              description: Thumbnail srcset for responsive images.
-              type: string
-            thumbnail_sizes:
-              description: Thumbnail sizes for responsive images.
-              type: string
-            name:
-              description: Image name.
-              type: string
-            alt:
-              description: Image alternative text.
-              type: string
-        reviewer:
-          description: Reviewer name.
-          type: string
-        review:
-          description: The content of the review.
-          type: string
-        rating:
-          description: Review rating (0 to 5).
-          type: integer
-        verified:
-          description: Shows if the reviewer bought the product or not.
-          type: boolean
-        reviewer_avatar_urls:
-          description: Avatar URLs for the object reviewer.
-          type: object
-          properties:
-            '24':
-              description: Avatar URL with image size of 24 pixels.
-              type: string
-              format: uri
-            '48':
-              description: Avatar URL with image size of 48 pixels.
-              type: string
-              format: uri
-            '96':
-              description: Avatar URL with image size of 96 pixels.
-              type: string
-              format: uri
-    ProductBrand:
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the resource.
-          type: integer
-        name:
-          description: Term name.
-          type: string
-        slug:
-          description: String based identifier for the term.
-          type: string
-        description:
-          description: Term description.
-          type: string
-        parent:
-          description: Parent term ID, if applicable.
-          type: integer
-        count:
-          description: Number of objects (posts of any type) assigned to the term.
-          type: integer
-        image:
-          description: Brand image.
-          type: object
-          properties:
-            id:
-              description: Image ID.
-              type: integer
-            src:
-              description: Full size image URL.
-              type: string
-              format: uri
-            thumbnail:
-              description: Thumbnail URL.
-              type: string
-              format: uri
-            srcset:
-              description: Full size image srcset for responsive images.
-              type: string
-            sizes:
-              description: Full size image sizes for responsive images.
-              type: string
-            thumbnail_srcset:
-              description: Thumbnail srcset for responsive images.
-              type: string
-            thumbnail_sizes:
-              description: Thumbnail sizes for responsive images.
-              type: string
-            name:
-              description: Image name.
-              type: string
-            alt:
-              description: Image alternative text.
-              type: string
-        review_count:
-          description: Number of reviews for products of this brand.
-          type: integer
-        permalink:
-          description: Brand URL.
-          type: string
-          format: uri
     ProductCollectionData:
       type: object
       properties:
