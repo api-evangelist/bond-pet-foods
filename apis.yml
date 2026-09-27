@@ -62,26 +62,20 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: bond-pet-foods:bond-pet-foods-wc-store-v1-api
-  name: Bond Pet Foods Wc/store/v1 API
-  description: The wc/store/v1 API from Bond Pet Foods — 31 operation(s) for wc/store/v1.
-  humanURL: https://www.bondpets.com/shop/
-  baseURL: https://www.bondpets.com/wp-json/wc/store/v1
+- aid: bond-pet-foods:bondpets-com-website-wordpress-rest
+  name: Bond Pet Foods Website (WordPress REST)
+  description: 'The public WordPress REST API (wp-json) of the Bond Pet Foods website at www.bondpets.com:
+    the route index of the site''s content management system, catalogued as one site surface rather than
+    as separate APIs.'
+  baseURL: https://www.bondpets.com/wp-json
   tags:
-  - wc/store/v1
+  - WordPress
+  x-surface: platform-generated
   properties:
-  - type: OpenAPI
-    url: openapi/bond-pet-foods-wc-store-v1-api-openapi.yml
-- aid: bond-pet-foods:bond-pet-foods-wp-v2-api
-  name: Bond Pet Foods Wp/v2 API
-  description: The wp/v2 API from Bond Pet Foods — 134 operation(s) for wp/v2.
-  humanURL: https://www.bondpets.com/shop/
-  baseURL: https://www.bondpets.com/wp-json/wc/store/v1
-  tags:
-  - wp/v2
-  properties:
-  - type: OpenAPI
-    url: openapi/bond-pet-foods-wp-v2-api-openapi.yml
+  - type: Documentation
+    url: https://www.bondpets.com/wp-json
+  x-platform: wordpress
+  x-platform-surface: rest
 common:
 - type: Overlay
   url: overlays/bond-pet-foods-content-overlay.yaml
